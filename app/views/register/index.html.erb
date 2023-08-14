@@ -1,0 +1,31 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+
+<body>
+    <center>
+        <h1 style="margin-top: 20vh;">Welcome to NSFZ Library</h1>
+        <%= form_tag('/register', method: 'post') do %>
+            <label for="username">Username:</label>
+            <%= text_field_tag('username')%>
+            <br><br>
+            <label for="password">Password:</label>
+            <%= password_field_tag('password') %>
+            <br><br>
+            <% if flash[:error] %>
+                <p style="color: red;"><%= flash[:error] %>. You want to <a href="./login">login</a> instead?</p>
+                
+            <% end %>
+            
+            <%= submit_tag('Sign up') %>
+        <% end %>
+        <br>
+    </center>
+</body>
+
+</html>

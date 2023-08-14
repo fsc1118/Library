@@ -1,0 +1,40 @@
+<html>
+    <center style="margin-top: 20vh;">
+        <h1>
+            Admin Portal
+        </h1>
+    </center>
+    <div style="margin-left:30vw; width: 100vw">
+        <h2>
+            Add Book
+        </h2>
+        <%= form_tag('/admin/book', method: 'post') do %>
+            
+            <label for="title">Title:</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <%= text_field_tag('title')%> &nbsp;&nbsp;&nbsp;
+            <label for="isbn">ISBN:</label>
+            <%= text_field_tag('isbn')%>
+            <br>
+            <br>Author's:<br>
+            <label for="authorLastName">Last Name:</label>
+            <%= text_field_tag('authorLastName')%>
+            &nbsp;&nbsp;&nbsp;
+            <label for="authorFirstName">First Name:</label>
+            <%= text_field_tag('authorFirstName')%>
+            <br>
+            <br>
+            <br>
+            <label for="edition">Edition:</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <%= text_field_tag('edition')%>
+            <br>
+            <br>
+            <% if flash[:error] %>
+                <p style="color: red;"><%= flash[:error] %></p>
+            <% elsif flash[:success] %>
+                <p style="color: green;"><%= flash[:success] %></p>
+            <% end %>
+            <%= submit_tag('Add Book') %>
+        <% end %>
+        <a href="/admin">Back</a>
+    </div>
+</html>

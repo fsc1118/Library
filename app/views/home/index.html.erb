@@ -1,0 +1,60 @@
+<html>
+    <script>
+        // Search for token in cookie
+        if (!document.cookie) {
+            window.location.href = '/login'
+        }
+        let token = document.cookie.split('; ').find(row => row.startsWith('token='))
+        if (!token) {
+            window.location.href = '/login'
+        }
+        token = token.split('=')[1]
+        let username = document.cookie.split('; ').find(row => row.startsWith('username='))
+        if (!username) {
+            window.location.href = '/login'
+        }
+        username = username.split('=')[1]
+    </script>
+    <body>
+        <center >
+            <h1 style="margin-top: 20vh;">
+                Welcome! <span id="username"></span>
+            </h1>
+            <script>
+                document.getElementById('username').innerText = username;
+            </script>
+            <br>
+            <form action="/search" method="get">
+                <label for="search">Search:</label>
+                <input type="text" id="search" name="search">
+                By
+                <label for="type"></label>
+                
+                <select name="type" id="type">
+                    <option value="ISBN">ISBN</option>
+                    <option value="Title">Title</option>
+                </select>
+                <input type="submit" value="Search">
+            </form>
+            <% if flash[:error] %>
+                <p style="color: red;"><%= flash[:error] %></p>
+            <% end %>
+            <a href="/admin">Admin Portal</a><br>
+            <a href="/" id="logout-link" onclick="logoutAndClearCookies();">Logout</a>
+        <body>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const logoutLink = document.getElementById("logout-link");
+
+                logoutLink.addEventListener("click", function(event) {
+                    const cookies = document.cookie.split("; ");
+                    for (const i = 0; i < cookies.length; i++) {
+                        const cookie = cookies[i];
+                        const eqPos = cookie.indexOf("=");
+                        const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+                        document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                    }
+                });
+            });
+        </script>
+</html>

@@ -1,0 +1,43 @@
+<html>
+    <body style="
+        margin-top: 10vh;
+        margin-left: 10vw;
+        margin-right: 10vw;
+    ">
+        <form action="/search" method="get">
+            <label for="search">Search:</label>
+            <input type="text" id="search" name="search" value=<%=@search%>>
+            By
+            <label for="type"></label>
+            
+            <select name="type" id="type">
+                <% if @type == "ISBN" %>
+                    <option value="ISBN" selected>ISBN</option>
+                    <option value="Title">Title</option>
+                <% else %>
+                    <option value="ISBN">ISBN</option>
+                    <option value="Title" selected>Title</option>
+                <% end %>
+            </select>
+            
+            <input type="submit" value="Search">
+            <% if flash[:error] %>
+                <p style="color: red;"><%= flash[:error] %></p>
+            <% end %>
+        </form>
+        Found <%= @books.length %> books available.
+        <br>
+        <a href="/">Back</a>
+        <br>
+        <hr>
+        <% for book in @books %>
+            Title: <%= book['book_name'] %><br>
+            ISBN: <%= book['isbn'] %><br>
+            Author: <%= book[
+                'author_first_name'] %> <%= book['author_last_name']
+            %><br>
+            Edition: <%= book['edition'] %><br>
+            <hr>
+        <% end %>
+    </body>
+</html>
